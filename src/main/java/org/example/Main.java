@@ -1,6 +1,8 @@
 package org.example;
 
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Main {
     public static void main(String[] args) {
@@ -8,7 +10,14 @@ public class Main {
         System.out.println("Введите текст с телефонными номерами:");
         String input = scanner.nextLine();
 
-        System.out.println("\nРезультат форматирования:");
-        System.out.println(input);
+        // Регулярное выражение для поиска телефонных номеров
+        String phonePattern = "(\\+?\\d{1,3})?[\\s\\-\\.]?\\(?(\\d{3})\\)?[\\s\\-\\.]?(\\d{3})[\\s\\-\\.]?(\\d{2})[\\s\\-\\.]?(\\d{2})";
+        Pattern pattern = Pattern.compile(phonePattern);
+        Matcher matcher = pattern.matcher(input);
+
+        System.out.println("\nНайдены следующие номера:");
+        while (matcher.find()) {
+            System.out.println("Найден номер: " + matcher.group());
+        }
     }
 }
